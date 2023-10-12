@@ -4,6 +4,8 @@ import java.util.Scanner;
  public class Main {
 
     public static void main(String[] args) {
+        String name = Player.enterName();
+        System.out.println("Welcome, " + name + "! Let's start the game,im am a computer and I will play against you.");
 
         Scanner scanner = new Scanner(System.in);
 
@@ -30,6 +32,7 @@ import java.util.Scanner;
     }
 
 
+
     private static boolean isGameFinished(char[][] board) {
 
         if (hasContestantWon(board, 'X')) {
@@ -37,6 +40,8 @@ import java.util.Scanner;
             System.out.println("Player wins!");
             return true;
         }
+
+
 
         if (hasContestantWon(board, 'O')) {
             printBoard(board);
@@ -54,7 +59,9 @@ import java.util.Scanner;
         printBoard(board);
         System.out.println("The game ended in a tie!");
         return true;
+
     }
+
 
 
     private static boolean hasContestantWon(char[][] board, char symbol) {
