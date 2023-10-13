@@ -9,6 +9,10 @@ import java.util.Scanner;
 
         Scanner scanner = new Scanner(System.in);
 
+        Player player = new Player();
+        player.HowToPlay();
+
+
         char[][] board = {{' ', ' ', ' '},
                 {' ', ' ', ' '},
                 {' ', ' ', ' '}};
