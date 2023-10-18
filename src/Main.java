@@ -1,17 +1,20 @@
-import java.util.Random;
+
 import java.util.Scanner;
 
- public class Main {
+public class Main {
 
     public static void main(String[] args) {
-        String name = Player.enterName();
-        System.out.println("Welcome, " + name + "! Let's start the game,im am a computer and I will play against you.");
+        String name1 = Player.enterName();
+        Player player=new Player(name1);
+
+       String name2=Player2.enterName();
+        Player player2=new Player(name2);
+
+        System.out.println("Welcome, " + player.getName()+ "and" + player2.getName()+ "! Let's start the game");
 
         Scanner scanner = new Scanner(System.in);
 
-        Player player = new Player();
         player.HowToPlay();
-
 
         char[][] board = {{' ', ' ', ' '},
                 {' ', ' ', ' '},
@@ -20,13 +23,13 @@ import java.util.Scanner;
         printBoard(board);
 
         while (true) {
-            playerTurn(board, scanner);
+            player1Turn(board, scanner);
             if (isGameFinished(board)){
                 break;
             }
             printBoard(board);
 
-            computerTurn(board);
+            player2Turn(board);
             if (isGameFinished(board)){
                 break;
             }
@@ -35,6 +38,18 @@ import java.util.Scanner;
         scanner.close();
     }
 
+    private static void player2Turn(char[][] board) {
+        System.out.println("Player 2's turn:");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your move (1-9): ");
+        String move = scanner.nextLine();
+        makeMove(board, move, 'O');
+
+
+
+
+
+    }
 
 
     private static boolean isGameFinished(char[][] board) {
@@ -49,7 +64,7 @@ import java.util.Scanner;
 
         if (hasContestantWon(board, 'O')) {
             printBoard(board);
-            System.out.println("Computer wins!");
+            System.out.println("Plyer2 wins!");
             return true;
         }
 
@@ -84,20 +99,12 @@ import java.util.Scanner;
         return false;
     }
 
-
-    private static void computerTurn(char[][] board) {
-        Random rand = new Random();
-        int computerMove;
-        while (true) {
-            computerMove = rand.nextInt(9) + 1;
-            if (isValidMove(board, Integer.toString(computerMove))) {
-                break;
-            }
-        }
-        System.out.println("Computer chose " + computerMove);
-        placeMove(board, Integer.toString(computerMove), 'O');
+    private static void makeMove(char[][] board, String move, char symbol) {
+        int position = Integer.parseInt(move) - 1;
+        int row = position / 3;
+        int col = position % 3;
+        board[row][col] = symbol;
     }
-
 
     private static boolean isValidMove (char[][] board, String position) {
         switch(position) {
@@ -124,9 +131,10 @@ import java.util.Scanner;
         }
     }
 
-    private static void playerTurn(char[][] board, Scanner scanner) {
+    private static void player1Turn(char[][] board, Scanner scanner) {
         String userInput;
         while (true) {
+            System.out.println("Player 1's turn:");
             System.out.println("Where would you like to play? (1-9)");
             userInput = scanner.nextLine();
             if (isValidMove(board, userInput)){
@@ -137,7 +145,6 @@ import java.util.Scanner;
         }
         placeMove(board, userInput, 'X');
     }
-
 
     private static void placeMove(char[][] board, String position, char symbol) {
         switch(position) {
@@ -172,9 +179,6 @@ import java.util.Scanner;
                 System.out.println(":(");
         }
     }
-
-
-
 
     private static void printBoard(char[][] board) {
         System.out.println(board[0][0] + "|" +  board[0][1] + "|" +  board[0][2] );
