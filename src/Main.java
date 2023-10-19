@@ -5,12 +5,12 @@ public class Main {
 
     public static void main(String[] args) {
         String name1 = Player.enterName();
-        Player player=new Player(name1);
+        Player player = new Player(name1);
 
-       String name2=Player2.enterName();
-        Player player2=new Player(name2);
+        String name2 = Player2.enterName();
+        Player player2 = new Player(name2);
 
-        System.out.println("Welcome, " + player.getName()+ "and" + player2.getName()+ "! Let's start the game");
+        System.out.println("Welcome, " + player.getName() + "  and  " + player2.getName() + "! Let's start the game");
 
         Scanner scanner = new Scanner(System.in);
 
@@ -24,13 +24,13 @@ public class Main {
 
         while (true) {
             player1Turn(board, scanner);
-            if (isGameFinished(board)){
+            if (isGameFinished(board)) {
                 break;
             }
             printBoard(board);
 
             player2Turn(board);
-            if (isGameFinished(board)){
+            if (isGameFinished(board)) {
                 break;
             }
             printBoard(board);
@@ -38,25 +38,27 @@ public class Main {
         scanner.close();
     }
 
-    private static void player2Turn(char[][] board) {
-        System.out.println("Player 2's turn:");
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter your move (1-9): ");
-        String move = scanner.nextLine();
-        makeMove(board, move, 'O');
-
-
-
-
+     private static void player2Turn(char[][] board) {
+         String userInput;
+         Scanner scanner = new Scanner(System.in);
+         while (true) {
+             System.out.println("Player 2's turn:");
+             System.out.println("Where would you like to play? (1-9)");
+             userInput = scanner.nextLine();
+             if (isValidMove(board, userInput)){
+                 break;
+             } else {
+                 System.out.println(userInput + " is not a valid move.");
+             }
+     }
+        placeMove(board, userInput, 'O');
 
     }
-
-
     private static boolean isGameFinished(char[][] board) {
 
         if (hasContestantWon(board, 'X')) {
             printBoard(board);
-            System.out.println("Player wins!");
+            System.out.println("Player1 wins!");
             return true;
         }
 
@@ -64,7 +66,7 @@ public class Main {
 
         if (hasContestantWon(board, 'O')) {
             printBoard(board);
-            System.out.println("Plyer2 wins!");
+            System.out.println("Player2 wins!");
             return true;
         }
 
